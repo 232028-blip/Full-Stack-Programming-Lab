@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task 2 – Interactive Calculator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .calc-wrapper {
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 20px;
+      padding: 40px 36px;
+      max-width: 420px;
+      width: 90%;
+      box-shadow: 0 25px 60px rgba(0,0,0,.5);
+    }
+    h1 { color: #fff; text-align: center; margin-bottom: 28px; font-size: 1.7rem; letter-spacing: .5px; }
+    label { color: #ccc; font-size: .88rem; display: block; margin-bottom: 5px; }
+    input[type="number"], select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 10px;
+      background: rgba(255,255,255,.09);
+      color: #fff;
+      font-size: 1.05rem;
+      outline: none;
+      margin-bottom: 16px;
+      transition: border-color .2s;
+    }
+    input::placeholder { color: rgba(255,255,255,.4); }
+    input:focus, select:focus { border-color: #7c83fd; }
+    select option { background: #302b63; color: #fff; }
+    button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #7c83fd, #5e5cdb);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 4px;
+      transition: transform .15s, box-shadow .15s;
+    }
+    button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(124,131,253,.4); }
+    #result-box {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 1.35rem;
+      font-weight: 700;
+      min-height: 58px;
+      transition: background .4s, color .4s;
+      background: rgba(255,255,255,.07);
+      color: #fff;
+    }
+    .positive { background: #1e7e4b !important; color: #d4edda !important; }
+    .negative { background: #8b1a1a !important; color: #f8d7da !important; }
+    .zero     { background: #444    !important; color: #eee    !important; }
+    .error    { background: #6b3a00 !important; color: #ffe0a0 !important; }
+    .divider { height: 1px; background: rgba(255,255,255,.1); margin: 18px 0; }
+  </style>
+</head>
+<body>
+<div class="calc-wrapper">
+  <h1>🧮 Calculator</h1>
+
+  <label>First Number</label>
+  <input type="number" id="num1" placeholder="e.g. 42"/>
+
+  <label>Operation</label>
+  <select id="operation">
+    <option value="add">➕ Addition</option>
+    <option value="sub">➖ Subtraction</option>
+    <option value="mul">✖ Multiplication</option>
+    <option value="div">➗ Division</option>
+  </select>
+
+  <label>Second Number</label>
+  <input type="number" id="num2" placeholder="e.g. 7"/>
+
+  <button onclick="calculate()">Calculate</button>
+
+  <div class="divider"></div>
+  <div id="result-box">Result will appear here…</div>
+</div>
+
+<script>
+  function calculate() {
+    const n1  = parseFloat(document.getElementById('num1').value);
+    const n2  = parseFloat(document.getElementById('num2').value);
+    const op  = document.getElementById('operation').value;
+    const box = document.getElementById('result-box');
+
+    // Input validation
+    if (isNaN(n1) || isNaN(n2)) {
+      box.textContent = '⚠️ Please enter valid numbers in both fields.';
+      box.className = 'error';
+      return;
+    }
+
+    // Division by zero guard
+    if (op === 'div' && n2 === 0) {
+      box.textContent = '❌ Division by zero is undefined!';
+      box.className = 'error';
+      return;
+    }
+
+    let result;
+    let opSymbol;
+
+    switch (op) {
+      case 'add': result = n1 + n2; opSymbol = '+'; break;
+      case 'sub': result = n1 - n2; opSymbol = '−'; break;
+      case 'mul': result = n1 * n2; opSymbol = '×'; break;
+      case 'div': result = n1 / n2; opSymbol = '÷'; break;
+    }
+
+    box.textContent = `${n1} ${opSymbol} ${n2} = ${parseFloat(result.toFixed(6))}`;
+
+    // Bonus: colour based on result sign
+    if (result > 0)      box.className = 'positive';
+    else if (result < 0) box.className = 'negative';
+    else                 box.className = 'zero';
+  }
+</script>
+</body>
+</html>

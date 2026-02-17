@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task 5 – Form Validation</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(160deg, #0d1117 0%, #161b22 100%);
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: #21262d;
+      border: 1px solid #30363d;
+      border-radius: 16px;
+      padding: 40px 36px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 16px 50px rgba(0,0,0,.5);
+    }
+    h1 { color: #58a6ff; text-align: center; margin-bottom: 6px; font-size: 1.7rem; }
+    .sub { text-align: center; color: #8b949e; margin-bottom: 28px; font-size: .9rem; }
+    .field { margin-bottom: 18px; }
+    label { display: block; color: #c9d1d9; font-size: .88rem; font-weight: 600; margin-bottom: 6px; }
+    input {
+      width: 100%;
+      padding: 11px 14px;
+      background: #0d1117;
+      border: 1.5px solid #30363d;
+      border-radius: 8px;
+      color: #c9d1d9;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color .2s;
+    }
+    input:focus { border-color: #58a6ff; }
+    input.valid  { border-color: #3fb950; }
+    input.invalid { border-color: #f85149; }
+    .err {
+      font-size: .8rem;
+      margin-top: 5px;
+      min-height: 16px;
+      color: #f85149;
+      font-weight: 500;
+    }
+    .err.ok { color: #3fb950; }
+    button {
+      width: 100%;
+      padding: 13px;
+      background: #238636;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: background .2s;
+    }
+    button:hover { background: #2ea043; }
+    #success-msg {
+      display: none;
+      margin-top: 20px;
+      padding: 16px;
+      background: #0d2a16;
+      border: 1px solid #3fb950;
+      border-radius: 10px;
+      color: #3fb950;
+      text-align: center;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>📋 Registration Form</h1>
+  <p class="sub">All fields are required</p>
+
+  <div class="field">
+    <label>Full Name</label>
+    <input type="text" id="name" placeholder="Your full name" oninput="validateName()"/>
+    <div class="err" id="name-err"></div>
+  </div>
+
+  <div class="field">
+    <label>Email Address</label>
+    <input type="text" id="email" placeholder="user@example.com" oninput="validateEmail()"/>
+    <div class="err" id="email-err"></div>
+  </div>
+
+  <div class="field">
+    <label>Age</label>
+    <input type="number" id="age" placeholder="Must be 18–60" oninput="validateAge()"/>
+    <div class="err" id="age-err"></div>
+  </div>
+
+  <div class="field">
+    <label>Password</label>
+    <input type="password" id="password" placeholder="Minimum 6 characters" oninput="validatePassword()"/>
+    <div class="err" id="pass-err"></div>
+  </div>
+
+  <button onclick="submitForm()">Register</button>
+  <div id="success-msg"></div>
+</div>
+
+<script>
+  // ── Individual validation functions ───────────────────────────────────────
+  function validateName() {
+    const val  = document.getElementById('name').value.trim();
+    const inp  = document.getElementById('name');
+    const err  = document.getElementById('name-err');
+    if (val === '') {
+      setError(inp, err, 'Name must not be empty.');
+      return false;
+    }
+    setOk(inp, err, '✔ Looks good!');
+    return true;
+  }
+
+  function validateEmail() {
+    const val = document.getElementById('email').value.trim();
+    const inp = document.getElementById('email');
+    const err = document.getElementById('email-err');
+    if (!val.includes('@')) {
+      setError(inp, err, 'Email must contain an @ symbol.');
+      return false;
+    }
+    setOk(inp, err, '✔ Valid email format.');
+    return true;
+  }
+
+  function validateAge() {
+    const val = parseInt(document.getElementById('age').value);
+    const inp = document.getElementById('age');
+    const err = document.getElementById('age-err');
+    if (isNaN(val) || val < 18 || val > 60) {
+      setError(inp, err, 'Age must be between 18 and 60.');
+      return false;
+    }
+    setOk(inp, err, '✔ Age is valid.');
+    return true;
+  }
+
+  function validatePassword() {
+    const val = document.getElementById('password').value;
+    const inp = document.getElementById('password');
+    const err = document.getElementById('pass-err');
+    if (val.length < 6) {
+      setError(inp, err, `Password too short (${val.length}/6 chars).`);
+      return false;
+    }
+    setOk(inp, err, '✔ Strong enough!');
+    return true;
+  }
+
+  // ── DOM helpers ───────────────────────────────────────────────────────────
+  function setError(input, errEl, msg) {
+    input.className = 'invalid';
+    errEl.textContent = msg;
+    errEl.className = 'err';
+  }
+  function setOk(input, errEl, msg) {
+    input.className = 'valid';
+    errEl.textContent = msg;
+    errEl.className = 'err ok';
+  }
+
+  // ── Submit ────────────────────────────────────────────────────────────────
+  function submitForm() {
+    const allOk = validateName() & validateEmail() & validateAge() & validatePassword();
+    if (!allOk) {
+      alert('⚠️ Please fix the errors above before submitting.');
+      return;
+    }
+    const name = document.getElementById('name').value.trim();
+
+    // Bonus: confirm() dialog
+    const confirmed = confirm(`Submit registration for "${name}"?`);
+    if (!confirmed) return;
+
+    // Bonus: prompt() for extra info
+    const city = prompt(`Welcome ${name}! 🎉 Where are you from?`, 'City');
+
+    const msg = document.getElementById('success-msg');
+    msg.style.display = 'block';
+    msg.innerHTML = `✅ Registration Successful!<br><small>Welcome, <b>${name}</b>${city ? ` from ${city}` : ''}!</small>`;
+
+    // Bonus: alert
+    alert(`Registration complete! Welcome aboard, ${name}!`);
+  }
+</script>
+</body>
+</html>
