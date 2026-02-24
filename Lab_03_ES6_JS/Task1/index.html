@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Management System</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <span class="badge">SMS</span>
+      <h1>Student Management <span class="accent">System</span></h1>
+      <p class="subtitle">ES6 Classes · Template Literals · Dynamic Rendering</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="controls">
+      <button id="addBtn" class="btn btn-primary">+ Add Student</button>
+      <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="Search by name or semester…" />
+      </div>
+    </section>
+
+    <!-- Modal Form -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-box">
+        <button class="close-btn" id="closeModal">✕</button>
+        <h2>New Student</h2>
+        <label>Name <input type="text" id="fName" placeholder="Full name"/></label>
+        <label>Semester <input type="number" id="fSem" placeholder="e.g. 3" min="1" max="8"/></label>
+        <label>Courses <small>(comma separated)</small>
+          <input type="text" id="fCourses" placeholder="Math, Physics, CS"/>
+        </label>
+        <button class="btn btn-primary full-width" id="saveBtn">Save Student</button>
+      </div>
+    </div>
+
+    <section id="studentGrid" class="grid"></section>
+    <p id="noResults" class="no-results hidden">No students found.</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
