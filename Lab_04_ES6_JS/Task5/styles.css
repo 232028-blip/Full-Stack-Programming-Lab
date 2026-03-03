@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Main Card */
+.container {
+    background: white;
+    width: 500px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Text Box */
+.text-box {
+    padding: 20px;
+    border-radius: 10px;
+    background: #f4f4f4;
+    font-size: 16px;
+    transition: 0.3s ease;
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.button-group button {
+    margin: 5px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background: #0072ff;
+    color: white;
+    transition: 0.3s;
+}
+
+.button-group button:hover {
+    background: #0056d6;
+    transform: scale(1.05);
+}
+
+/* Toggle Classes */
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}

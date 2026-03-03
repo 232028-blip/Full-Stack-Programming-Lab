@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamic List Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- Header -->
+    <header class="site-header">
+      <div class="header-dots">
+        <span class="dot dot-1"></span>
+        <span class="dot dot-2"></span>
+        <span class="dot dot-3"></span>
+      </div>
+      <h1 class="site-title">My <span class="title-highlight">List</span> Manager</h1>
+      <p class="site-subtitle">Add items, stay organised, delete when done.</p>
+    </header>
+
+    <main>
+
+      <!-- Input Card -->
+      <div class="input-card">
+        <label for="itemInput" class="input-label">&#9998;&nbsp; Add a new item</label>
+        <div class="input-row">
+          <input
+            type="text"
+            id="itemInput"
+            class="text-input"
+            placeholder="What do you want to add?"
+            autocomplete="off"
+          />
+          <button id="addBtn" class="btn-add">
+            <span class="plus-icon">+</span> Add
+          </button>
+        </div>
+        <p id="errorMsg" class="error-msg hidden">&#9888; Please enter an item before adding.</p>
+      </div>
+
+      <!-- Stats Bar -->
+      <div class="stats-bar">
+        <div class="count-wrap">
+          <span>&#128204;</span>
+          <span id="itemCount">0 items</span>
+        </div>
+        <button id="clearAllBtn" class="btn-clear-all hidden">&#10005; Clear All</button>
+      </div>
+
+      <!-- List Panel -->
+      <div class="list-panel">
+        <div class="panel-header">
+          <span class="panel-title">Items List</span>
+          <span class="panel-hint">Hover to highlight &nbsp;&middot;&nbsp; &times; to remove</span>
+        </div>
+        <ul id="itemList" class="item-list"></ul>
+        <div id="emptyState" class="empty-state">
+          <span class="empty-emoji">&#128221;</span>
+          <p class="empty-heading">Nothing added yet</p>
+          <p class="empty-desc">Start by typing something in the box above.</p>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="site-footer">
+      Lab Task 1 &nbsp;&mdash;&nbsp; DOM Manipulation &nbsp;&middot;&nbsp; Event Handling &nbsp;&middot;&nbsp; CSS Manipulation &nbsp;&middot;&nbsp; jQuery &amp; AJAX
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tabbed Content</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>Profile Overview</h1>
+    <p>Click a tab to navigate and explore each section.</p>
+  </div>
+
+  <!-- Sticky tab bar -->
+  <div class="tab-bar-wrap">
+    <div class="tab-bar">
+      <button class="tab-btn" data-tab="overview">Overview</button>
+      <button class="tab-btn" data-tab="skills">Skills</button>
+      <button class="tab-btn" data-tab="experience">Experience</button>
+      <button class="tab-btn" data-tab="projects">Projects</button>
+      <button class="tab-btn" data-tab="contact">Contact</button>
+    </div>
+  </div>
+
+  <!-- All sections rendered together, scroll to active -->
+  <div class="sections-wrap">
+
+    <!-- Tab 1: Overview -->
+    <section class="tab-section" id="overview">
+      <div class="section-tag">01 — Overview</div>
+      <h2>About Me</h2>
+      <p>
+        I'm a front-end developer with a focus on clean interfaces and thoughtful interactions.
+        I enjoy turning complex problems into simple, elegant, and intuitive designs that
+        work seamlessly across devices and platforms.
+      </p>
+      <div class="meta">
+        <div class="meta-item">
+          <span class="label">Location</span>
+          <span class="value">Islamabad, PK</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Availability</span>
+          <span class="value">Open to work</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Experience</span>
+          <span class="value">3+ years</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Focus</span>
+          <span class="value">Front-end</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: Skills -->
+    <section class="tab-section" id="skills">
+      <div class="section-tag">02 — Skills</div>
+      <h2>Technical Skills</h2>
+      <p>A snapshot of the tools and technologies I work with on a daily basis.</p>
+      <div class="skill-list">
+        <div class="skill-row">
+          <div class="skill-label"><span>HTML &amp; CSS</span><span>95%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="--pct: 95%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label"><span>JavaScript</span><span>88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="--pct: 88%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label"><span>React</span><span>80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="--pct: 80%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label"><span>Node.js</span><span>65%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="--pct: 65%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label"><span>Figma / UI Design</span><span>75%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="--pct: 75%"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 3: Experience -->
+    <section class="tab-section" id="experience">
+      <div class="section-tag">03 — Experience</div>
+      <h2>Work History</h2>
+      <p>A brief timeline of my professional journey so far.</p>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <div class="tl-year">2023 — Present</div>
+            <div class="tl-title">Front-end Developer — TechCo</div>
+            <div class="tl-desc">Building responsive web apps with React and TypeScript. Collaborated with design and back-end teams on high-traffic products.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <div class="tl-year">2022 — 2023</div>
+            <div class="tl-title">UI Developer — Studio Neon</div>
+            <div class="tl-desc">Developed landing pages and component libraries for marketing campaigns. Reduced page load time by 40%.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <div class="tl-year">2021 — 2022</div>
+            <div class="tl-title">Intern — WebBase Agency</div>
+            <div class="tl-desc">Assisted in building client websites, maintained CMS templates, and contributed to UX research sessions.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 4: Projects -->
+    <section class="tab-section" id="projects">
+      <div class="section-tag">04 — Projects</div>
+      <h2>Selected Work</h2>
+      <p>A selection of personal and professional projects I've shipped.</p>
+      <div class="card-grid">
+        <div class="mini-card">
+          <div class="mc-label">Project</div>
+          <div class="mc-value">Taskly</div>
+          <p style="font-size:0.78rem;color:#888;margin-top:0.4rem;font-weight:300;">A minimal task manager built with React and local storage.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mc-label">Project</div>
+          <div class="mc-value">PaletteGen</div>
+          <p style="font-size:0.78rem;color:#888;margin-top:0.4rem;font-weight:300;">A color palette generator using CSS custom properties and JS.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mc-label">Project</div>
+          <div class="mc-value">Folio v2</div>
+          <p style="font-size:0.78rem;color:#888;margin-top:0.4rem;font-weight:300;">Personal portfolio with scroll animations and dark mode toggle.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mc-label">Project</div>
+          <div class="mc-value">NewsDigest</div>
+          <p style="font-size:0.78rem;color:#888;margin-top:0.4rem;font-weight:300;">RSS reader web app with filtering and bookmarking features.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 5: Contact -->
+    <section class="tab-section" id="contact">
+      <div class="section-tag">05 — Contact</div>
+      <h2>Get in Touch</h2>
+      <p>Feel free to reach out through any of the channels below. I typically respond within 24 hours.</p>
+      <div class="contact-list">
+        <div class="contact-row">
+          <div class="contact-icon">✉</div>
+          <div class="contact-info">
+            <div class="ci-label">Email</div>
+            <div class="ci-value">hello@example.com</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">🔗</div>
+          <div class="contact-info">
+            <div class="ci-label">LinkedIn</div>
+            <div class="ci-value">linkedin.com/in/janedoe</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">⌥</div>
+          <div class="contact-info">
+            <div class="ci-label">GitHub</div>
+            <div class="ci-value">github.com/janedoe</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">📍</div>
+          <div class="contact-info">
+            <div class="ci-label">Location</div>
+            <div class="ci-value">Islamabad, Pakistan</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

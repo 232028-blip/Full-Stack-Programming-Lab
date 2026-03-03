@@ -1,0 +1,22 @@
+[
+    {
+        "image": "https://picsum.photos/id/1015/600/400",
+        "caption": "Beautiful Mountain Landscape"
+    },
+    {
+        "image": "https://picsum.photos/id/1016/600/400",
+        "caption": "Serene Forest Path"
+    },
+    {
+        "image": "https://picsum.photos/id/1018/600/400",
+        "caption": "Calm Ocean View"
+    },
+    {
+        "image": "https://picsum.photos/id/1020/600/400",
+        "caption": "Golden Sunset Sky"
+    },
+    {
+        "image": "https://picsum.photos/id/1024/600/400",
+        "caption": "Majestic Eagle"
+    }
+]
