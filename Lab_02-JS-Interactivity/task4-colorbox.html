@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task 4 – Color Box Generator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #1e1e2e;
+      min-height: 100vh;
+      padding: 30px 20px;
+      color: #cdd6f4;
+    }
+    h1 { text-align: center; color: #cba6f7; margin-bottom: 6px; font-size: 1.9rem; }
+    .subtitle { text-align: center; color: #888; margin-bottom: 26px; font-size: .9rem; }
+    .controls {
+      background: #313244;
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 700px;
+      margin: 0 auto 20px;
+    }
+    .inputs-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
+    .color-field { flex: 1; min-width: 150px; }
+    .color-field label { display: block; font-size: .83rem; color: #a6adc8; margin-bottom: 5px; }
+    .color-field-row { display: flex; gap: 6px; align-items: center; }
+    .color-field input[type="text"] {
+      flex: 1;
+      padding: 9px 12px;
+      border: 1px solid #45475a;
+      border-radius: 8px;
+      background: #1e1e2e;
+      color: #cdd6f4;
+      font-size: .95rem;
+      outline: none;
+    }
+    .color-field input[type="text"]:focus { border-color: #cba6f7; }
+    .color-field input[type="color"] {
+      width: 38px; height: 38px;
+      border: none; border-radius: 7px; cursor: pointer;
+      background: #1e1e2e; padding: 2px;
+    }
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-add {
+      padding: 10px 22px;
+      background: #cba6f7; color: #1e1e2e;
+      border: none; border-radius: 10px;
+      font-size: .95rem; font-weight: 700; cursor: pointer;
+      transition: .15s;
+    }
+    .btn-add:hover { background: #b48fe4; }
+    .btn-clear {
+      padding: 10px 22px;
+      background: #f38ba8; color: #1e1e2e;
+      border: none; border-radius: 10px;
+      font-size: .95rem; font-weight: 700; cursor: pointer;
+      transition: .15s;
+    }
+    .btn-clear:hover { background: #d9748c; }
+    .bom-bar {
+      background: #45475a;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: .83rem;
+      color: #a6e3a1;
+      margin-top: 14px;
+    }
+    .boxes-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      max-width: 700px;
+      margin: 0 auto;
+      min-height: 60px;
+    }
+    .color-box {
+      width: 130px;
+      height: 100px;
+      border-radius: 12px;
+      display: flex; align-items: flex-end; justify-content: center;
+      padding-bottom: 8px;
+      font-size: .75rem; font-weight: 600;
+      text-shadow: 0 1px 3px rgba(0,0,0,.6);
+      box-shadow: 0 6px 18px rgba(0,0,0,.4);
+      animation: pop .25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    @keyframes pop { from { transform: scale(.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .color-box span { background: rgba(0,0,0,.4); padding: 2px 8px; border-radius: 6px; color: #fff; }
+    .no-boxes { color: #585b70; text-align: center; font-size: .9rem; padding: 20px 0; width: 100%; }
+  </style>
+</head>
+<body>
+  <h1>🎨 Color Box Generator</h1>
+  <p class="subtitle">Enter a color name or hex code, then click Add</p>
+
+  <div class="controls">
+    <div class="inputs-row">
+      <div class="color-field">
+        <label>Color 1</label>
+        <div class="color-field-row">
+          <input type="text" id="c1" placeholder="e.g. tomato" />
+          <input type="color" id="cp1" onchange="syncPicker(1)" value="#ff6347"/>
+        </div>
+      </div>
+      <div class="color-field">
+        <label>Color 2</label>
+        <div class="color-field-row">
+          <input type="text" id="c2" placeholder="e.g. #3498db" />
+          <input type="color" id="cp2" onchange="syncPicker(2)" value="#3498db"/>
+        </div>
+      </div>
+      <div class="color-field">
+        <label>Color 3</label>
+        <div class="color-field-row">
+          <input type="text" id="c3" placeholder="e.g. limegreen" />
+          <input type="color" id="cp3" onchange="syncPicker(3)" value="#32cd32"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-add"   onclick="addColors()">➕ Add Colors</button>
+      <button class="btn-clear" onclick="clearBoxes()">🗑 Clear All</button>
+    </div>
+
+    <!-- BOM Bonus -->
+    <div class="bom-bar" id="bom-bar"></div>
+  </div>
+
+  <div class="boxes-area" id="boxes-area">
+    <span class="no-boxes" id="empty-msg">No color boxes yet – add some above!</span>
+  </div>
+
+<script>
+  // ── BOM Info (Bonus) ──────────────────────────────────────────────────────
+  function showBOM() {
+    const bar = document.getElementById('bom-bar');
+    bar.innerHTML =
+      `🖥 Window: <b>${window.innerWidth}×${window.innerHeight}px</b> &nbsp;|&nbsp;
+       🌐 Browser: <b>${navigator.appName}</b> &nbsp;|&nbsp;
+       💻 Platform: <b>${navigator.platform}</b> &nbsp;|&nbsp;
+       🗣 Language: <b>${navigator.language}</b>`;
+  }
+  showBOM();
+  window.addEventListener('resize', showBOM);
+
+  // ── Sync colour picker ↔ text field ──────────────────────────────────────
+  function syncPicker(n) {
+    document.getElementById(`c${n}`).value = document.getElementById(`cp${n}`).value;
+  }
+
+  // ── Handle each colour input via individual function ─────────────────────
+  function processColor1(val) { return val.trim() || document.getElementById('cp1').value; }
+  function processColor2(val) { return val.trim() || document.getElementById('cp2').value; }
+  function processColor3(val) { return val.trim() || document.getElementById('cp3').value; }
+
+  // ── Create and append a color box using DOM manipulation ─────────────────
+  function createBox(color) {
+    const area = document.getElementById('boxes-area');
+    const box  = document.createElement('div');
+    box.className = 'color-box';
+    box.style.background = color;
+    box.innerHTML = `<span>${color}</span>`;
+    area.appendChild(box);
+  }
+
+  function addColors() {
+    const v1 = processColor1(document.getElementById('c1').value);
+    const v2 = processColor2(document.getElementById('c2').value);
+    const v3 = processColor3(document.getElementById('c3').value);
+
+    document.getElementById('empty-msg').style.display = 'none';
+    [v1, v2, v3].forEach(c => { if (c) createBox(c); });
+  }
+
+  function clearBoxes() {
+    const area = document.getElementById('boxes-area');
+    // Remove all .color-box elements
+    area.querySelectorAll('.color-box').forEach(b => b.remove());
+    document.getElementById('empty-msg').style.display = '';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drag & Drop Sortable List</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- jQuery UI (for sortable) -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>📋 Drag & Drop Task List</h2>
+
+    <ul id="sortableList">
+        <li>Complete Assignment</li>
+        <li>Study for Exam</li>
+        <li>Go to Gym</li>
+        <li>Buy Groceries</li>
+        <li>Practice Coding</li>
+    </ul>
+
+    <div class="order-display">
+        Current Order:
+        <span id="currentOrder"></span>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

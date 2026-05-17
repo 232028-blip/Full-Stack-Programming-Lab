@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form Validation</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="card">
+
+  <!-- FORM VIEW -->
+  <div id="formView">
+    <div class="card-header">
+      <h1>Create account</h1>
+      <p>All fields are required unless noted.</p>
+    </div>
+    <div class="divider"></div>
+
+    <form id="regForm" novalidate>
+
+      <div class="row">
+        <div class="field">
+          <label for="fname">First name</label>
+          <input type="text" id="fname" placeholder="Jane" />
+          <span class="error-msg" id="fname-err">Required.</span>
+        </div>
+        <div class="field">
+          <label for="lname">Last name</label>
+          <input type="text" id="lname" placeholder="Doe" />
+          <span class="error-msg" id="lname-err">Required.</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="jane@example.com" />
+        <span class="error-msg" id="email-err">Enter a valid email.</span>
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" placeholder="+92 300 0000000" />
+        <span class="error-msg" id="phone-err">Enter a valid phone number.</span>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Min. 8 characters" />
+        <span class="error-msg" id="password-err">Must be at least 8 characters.</span>
+      </div>
+
+      <div class="field">
+        <label for="confirm">Confirm password</label>
+        <input type="password" id="confirm" placeholder="Repeat password" />
+        <span class="error-msg" id="confirm-err">Passwords do not match.</span>
+      </div>
+
+      <div class="field">
+        <label for="role">Role</label>
+        <div class="select-wrap">
+          <select id="role">
+            <option value="">Select a role</option>
+            <option value="student">Student</option>
+            <option value="developer">Developer</option>
+            <option value="designer">Designer</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <span class="error-msg" id="role-err">Please select a role.</span>
+      </div>
+
+      <div class="checkbox-field">
+        <input type="checkbox" id="terms" />
+        <label for="terms">I agree to the <a href="#">terms</a> and <a href="#">privacy policy</a>.</label>
+      </div>
+      <span class="error-msg" id="terms-err" style="margin-top:-1rem;margin-bottom:1rem;">You must agree to continue.</span>
+
+      <button type="submit">Create account →</button>
+    </form>
+  </div>
+
+  <!-- SUCCESS VIEW -->
+  <div class="success-overlay" id="successView">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <h2>Account created</h2>
+    <p id="successName">Welcome! Your account is ready.</p>
+    <button class="reset-btn" id="resetBtn">← Start over</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

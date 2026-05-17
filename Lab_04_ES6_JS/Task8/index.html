@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Start Screen ── -->
+  <div class="screen" id="startScreen">
+    <div class="card center-card">
+      <div class="section-tag">Lab Task 08</div>
+      <h1>Quiz Game</h1>
+      <p class="subtitle">10 questions · Multiple choice · Timed</p>
+      <div class="divider"></div>
+      <div class="info-grid">
+        <div class="info-item"><span class="info-label">Questions</span><span class="info-val">10</span></div>
+        <div class="info-item"><span class="info-label">Time / Q</span><span class="info-val">20s</span></div>
+        <div class="info-item"><span class="info-label">Points</span><span class="info-val">+10</span></div>
+        <div class="info-item"><span class="info-label">Penalty</span><span class="info-val">—</span></div>
+      </div>
+      <button class="btn-primary" id="startBtn">Start quiz →</button>
+    </div>
+  </div>
+
+  <!-- ── Quiz Screen ── -->
+  <div class="screen hidden" id="quizScreen">
+    <!-- Top bar -->
+    <div class="quiz-topbar">
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="progress-label mono" id="progressLabel">1 / 10</span>
+      </div>
+      <div class="timer-wrap">
+        <div class="timer-ring">
+          <svg viewBox="0 0 36 36">
+            <circle class="ring-bg" cx="18" cy="18" r="15.9"/>
+            <circle class="ring-fg" id="timerRing" cx="18" cy="18" r="15.9"
+              stroke-dasharray="100 100" stroke-dashoffset="0"/>
+          </svg>
+          <span class="timer-num" id="timerNum">20</span>
+        </div>
+      </div>
+      <div class="score-pill mono" id="scorePill">0 pts</div>
+    </div>
+
+    <!-- Question card -->
+    <div class="quiz-body">
+      <div class="qcard" id="qcard">
+        <div class="q-meta">
+          <span class="section-tag" id="qCategory">Category</span>
+          <span class="q-num mono" id="qNum">Q1</span>
+        </div>
+        <div class="q-text" id="qText">Question text goes here?</div>
+        <div class="options-grid" id="optionsGrid"></div>
+        <div class="q-feedback hidden" id="qFeedback"></div>
+      </div>
+
+      <button class="btn-next hidden" id="nextBtn">Next →</button>
+    </div>
+  </div>
+
+  <!-- ── Result Screen ── -->
+  <div class="screen hidden" id="resultScreen">
+    <div class="card center-card result-card">
+      <div class="section-tag">Quiz Complete</div>
+      <div class="score-ring-wrap">
+        <svg class="score-ring" viewBox="0 0 120 120">
+          <circle class="sr-bg" cx="60" cy="60" r="52"/>
+          <circle class="sr-fill" id="scoreRingFill" cx="60" cy="60" r="52"
+            stroke-dasharray="326.7 326.7" stroke-dashoffset="326.7"/>
+        </svg>
+        <div class="score-inner">
+          <span class="score-big" id="scoreBig">0</span>
+          <span class="score-sub">/ 100</span>
+        </div>
+      </div>
+
+      <div class="result-title" id="resultTitle">—</div>
+      <p class="result-sub" id="resultSub">—</p>
+
+      <div class="divider"></div>
+
+      <div class="result-stats">
+        <div class="rs-item"><span class="rs-label">Correct</span><span class="rs-val correct-col" id="rsCorrect">0</span></div>
+        <div class="rs-item"><span class="rs-label">Wrong</span><span class="rs-val wrong-col" id="rsWrong">0</span></div>
+        <div class="rs-item"><span class="rs-label">Skipped</span><span class="rs-val" id="rsSkipped">0</span></div>
+        <div class="rs-item"><span class="rs-label">Accuracy</span><span class="rs-val" id="rsAccuracy">0%</span></div>
+      </div>
+
+      <!-- Answer review -->
+      <div class="review-list" id="reviewList"></div>
+
+      <button class="btn-primary" id="retryBtn">Try again →</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

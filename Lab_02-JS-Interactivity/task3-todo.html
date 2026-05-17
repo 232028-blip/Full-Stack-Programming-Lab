@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task 3 – To-Do List</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4ff;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      background: #fff;
+      border-radius: 18px;
+      padding: 36px;
+      max-width: 560px;
+      width: 100%;
+      box-shadow: 0 12px 40px rgba(67,97,238,.12);
+    }
+    h1 { color: #4361ee; text-align: center; margin-bottom: 6px; }
+    .hint { text-align: center; color: #999; font-size: .88rem; margin-bottom: 28px; }
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px;
+      background: #f8f9ff;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      border-left: 4px solid #4361ee;
+      transition: opacity .3s;
+    }
+    .task-item.completed {
+      border-left-color: #2d9e5f;
+      background: #f0fff6;
+      opacity: .75;
+    }
+    .task-item.removed { display: none; }
+    .task-label {
+      flex: 1;
+      font-size: .98rem;
+      font-weight: 500;
+      color: #333;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .task-item.completed .task-label {
+      text-decoration: line-through;
+      color: #888;
+    }
+    .task-input {
+      flex: 1;
+      padding: 7px 10px;
+      border: 2px solid #dde;
+      border-radius: 7px;
+      font-size: .95rem;
+      outline: none;
+    }
+    .task-input:focus { border-color: #4361ee; }
+    .task-item.completed .task-input {
+      text-decoration: line-through; color: #888; background: #f0fff6;
+    }
+    .btn-complete {
+      padding: 7px 14px;
+      border: none; border-radius: 7px;
+      background: #4361ee; color: #fff;
+      font-size: .82rem; font-weight: 600; cursor: pointer; transition: .15s;
+    }
+    .btn-complete:hover { background: #3451cc; }
+    .btn-complete.undo  { background: #6c757d; }
+    .btn-remove {
+      padding: 7px 12px;
+      border: none; border-radius: 7px;
+      background: #e63946; color: #fff;
+      font-size: .82rem; font-weight: 600; cursor: pointer; transition: .15s;
+    }
+    .btn-remove:hover { background: #c72c38; }
+    .status-bar {
+      text-align: center; color: #555;
+      font-size: .9rem; margin-top: 18px;
+    }
+    #applyStyle { display: none; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>✅ To-Do List</h1>
+  <p class="hint">Edit the task name, then mark complete or remove it</p>
+
+  <!-- 3 Fixed Tasks -->
+  <div class="task-item" id="task-0">
+    <span class="task-label">#1</span>
+    <input class="task-input" value="Complete HTML Assignment" />
+    <button class="btn-complete" onclick="toggleComplete(0)">Done</button>
+    <button class="btn-remove"   onclick="removeTask(0)">✕</button>
+  </div>
+
+  <div class="task-item" id="task-1">
+    <span class="task-label">#2</span>
+    <input class="task-input" value="Study JavaScript Functions" />
+    <button class="btn-complete" onclick="toggleComplete(1)">Done</button>
+    <button class="btn-remove"   onclick="removeTask(1)">✕</button>
+  </div>
+
+  <div class="task-item" id="task-2">
+    <span class="task-label">#3</span>
+    <input class="task-input" value="Push Code to GitHub" />
+    <button class="btn-complete" onclick="toggleComplete(2)">Done</button>
+    <button class="btn-remove"   onclick="removeTask(2)">✕</button>
+  </div>
+
+  <div class="status-bar" id="status">Tasks: 3 remaining</div>
+</div>
+
+<script>
+  const total = 3;
+  const state = { completed: [false, false, false], removed: [false, false, false] };
+
+  // Toggle complete status using DOM manipulation
+  function toggleComplete(index) {
+    const item = document.getElementById(`task-${index}`);
+    const btn  = item.querySelector('.btn-complete');
+    state.completed[index] = !state.completed[index];
+
+    if (state.completed[index]) {
+      item.classList.add('completed');
+      btn.textContent = 'Undo';
+      btn.classList.add('undo');
+    } else {
+      item.classList.remove('completed');
+      btn.textContent = 'Done';
+      btn.classList.remove('undo');
+    }
+    updateStatus();
+    // Use a loop to apply consistent styling to all tasks
+    styleAllTasks();
+  }
+
+  // Remove a task
+  function removeTask(index) {
+    const item = document.getElementById(`task-${index}`);
+    item.classList.add('removed');
+    state.removed[index] = true;
+    updateStatus();
+  }
+
+  // Loop through all tasks and apply uniform styling (strike-through for completed)
+  function styleAllTasks() {
+    for (let i = 0; i < total; i++) {
+      const item  = document.getElementById(`task-${i}`);
+      const input = item.querySelector('.task-input');
+      if (state.completed[i]) {
+        input.style.textDecoration = 'line-through';
+        input.style.color          = '#888';
+      } else {
+        input.style.textDecoration = 'none';
+        input.style.color          = '';
+      }
+    }
+  }
+
+  // Update the status bar
+  function updateStatus() {
+    let remaining = 0;
+    for (let i = 0; i < total; i++) {
+      if (!state.removed[i] && !state.completed[i]) remaining++;
+    }
+    document.getElementById('status').textContent =
+      `Tasks: ${remaining} remaining | ${state.completed.filter((c,i) => c && !state.removed[i]).length} completed`;
+  }
+</script>
+</body>
+</html>
